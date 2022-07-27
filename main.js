@@ -29,9 +29,50 @@ window.addEventListener('DOMContentLoaded', () => { // We need this as our js sc
         [2, 5, 8],
         [0, 4, 8],
         [2, 4, 6]
-    ]
+    ];
 
-    
+// this function will check for the state of the game and once a state is reached it will display it on screen
+    const announce = (type) => {
+        switch(type){
+            case playerX_WON:
+                announcer.innerHTML = 'Player <span class="playerX">X</span> WON!';
+                break;
+            case playerO_WON:
+                announcer.innerHTML = 'Player <span class="playerX">O</span> WON!';
+            case TIE:
+                announcer.innerHTML = 'TIE'
+        }
+        announcer.classList.remove('hide');
+    };
+
+// to change player we first remove the the currentPlayer from the classList and then change to X if it was O vice versa and then we update the playerDisplay to show who's turn it is
+    const changePlayer = () => {
+        playerDisplay.classList.remove(`player${currentPlayer}`);
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        playerDisplay.innerText = currentPlayer;
+        playerDisplay.classList.add(`player${currentPlayer}`);
+    }
+
+// Here first we check if the action is a valid action from the user and if it is end game or a tie if not then it will put the players letter inside the tile and update the board then check if its a winner or tie etc if not then it will switch to the other person turn 
+    const userAction = (tile, index) => {
+        if(isValidAction(tile) && isGameActive == true) {
+            tile.innerText = currentPlayer;
+            tile.classList.add(`player${currentPlayer}`)
+            updateBoard(index);
+            handleResultValidation();
+            changePlayer();
+        }
+    }
+
+// attaching an event listener to every tile/index in our array and use the function 'userAction' to get which tile the user clicked and execute an appropriate response
+    tiles.forEach((tile, index) => {
+        tile.addEventListener('click', () => userAction(tile, index));
+    });
 
     resetButton.addEventListener('click', resetBoard);
 });
+
+
+
+
+// Implement a win tracker for X wins and O wins
