@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', () => { // We need this as our js sc
 
 /* checks if all the tiles have been used, checks if they have a winning sequence and also then checks if they won te round
    if so display players name and if board does not contain any empty spaces it means its a tie */
-    function handleResultValidation() {
+   function handleResultValidation() {
         let roundWon = false;
         for (let i = 0; i <= 7; i++) {
             const winCondition = winningConditions[i];
@@ -50,15 +50,13 @@ window.addEventListener('DOMContentLoaded', () => { // We need this as our js sc
         }
 
     if (roundWon) {
-        announce(currentPlayer === 'X' ? playerX_WON : playerO_WON);
-        isGameActive = false;
-        return;
-    }
+            announce(currentPlayer === 'X' ? playerX_WON : playerO_WON);
+            isGameActive = false;
+            return;
+        }
 
-    if (!board.includes('')) {
-        announce(TIE); 
-    }
-
+    if (!board.includes(''))
+        announce(TIE);
     }
 
 // dark-mode - light-mode
@@ -76,13 +74,14 @@ window.addEventListener('DOMContentLoaded', () => { // We need this as our js sc
 // this function will check for the state of the game and once a state is reached it will display it on screen
     const announce = (type) => {
         switch(type){
-            case playerX_WON:
-                announcer.innerHTML = 'Player <span class="playerX">X</span> WON!';
-                break;
             case playerO_WON:
-                announcer.innerHTML = 'Player <span class="playerX">O</span> WON!';
+                announcer.innerHTML = 'Player <span class="playerO">O</span> Won';
+                break;
+            case playerX_WON:
+                announcer.innerHTML = 'Player <span class="playerX">X</span> Won';
+                break;
             case TIE:
-                announcer.innerHTML = 'Tie'
+                announcer.innerText = 'Tie';
         }
         announcer.classList.remove('hide');
     };
