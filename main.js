@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', () => { // We need this as our js sc
     const playerDisplay = document.querySelector('.display-player'); // Setting up our global vairables and notice tiles is using 'Array.from' because queryselctor will convert the data into a nodelist and by using array.from it will allow us to use Array properties on the .tile element
     const resetButton = document.querySelector('#reset');
     const announcer = document.querySelector('.announcer');
-    
+
     let board = ['', '', '', '', '', '', '', '', '']; // Creating our tic tac toe board using an array
     let currentPlayer = 'X';
     let isGameActive = true;
@@ -56,9 +56,21 @@ window.addEventListener('DOMContentLoaded', () => { // We need this as our js sc
     }
 
     if (!board.includes('')) {
-        announce(TIE);
+        announce(TIE); 
     }
 
+    }
+
+// dark-mode - light-mode
+    var dl_Mode = document.getElementById('bright-mode')
+
+    dl_Mode.onclick = function() {
+        document.body.classList.toggle("dark-mode");
+        if(document.body.classList.contains("dark-mode")) {
+            dl_Mode.src = "images/moon.png"
+        } else {
+            dl_Mode.src = "images/sun.png"
+        }
     }
 
 // this function will check for the state of the game and once a state is reached it will display it on screen
@@ -70,7 +82,7 @@ window.addEventListener('DOMContentLoaded', () => { // We need this as our js sc
             case playerO_WON:
                 announcer.innerHTML = 'Player <span class="playerX">O</span> WON!';
             case TIE:
-                announcer.innerHTML = 'TIE'
+                announcer.innerHTML = 'Tie'
         }
         announcer.classList.remove('hide');
     };
@@ -132,8 +144,6 @@ window.addEventListener('DOMContentLoaded', () => { // We need this as our js sc
 
     resetButton.addEventListener('click', resetBoard);
 });
-
-
 
 
 // Implement a win tracker for X wins and O wins
